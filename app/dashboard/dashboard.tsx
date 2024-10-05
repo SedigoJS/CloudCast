@@ -110,7 +110,7 @@ export default function WeatherDashboard() {
           {error && <p className="text-center text-xl text-red-500">{error}</p>}
 
           {weatherData && (
-            <div className="bg-blue-200 dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <div className="bg-blue-200 text-black dark:bg-gray-800 rounded-xl shadow-lg p-6">
               <div className="flex justify-between items-center mb-6">
                 <div>
                   <h2 className="text-3xl font-semibold dark:text-white">
