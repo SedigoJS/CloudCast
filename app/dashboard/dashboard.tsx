@@ -8,6 +8,10 @@ import { motion } from 'framer-motion';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
+interface IconDefault {
+  _getIconUrl?: string;
+}
+
 type WeatherData = {
   temp: number;
   feelsLike: number;
@@ -46,7 +50,7 @@ export default function WeatherDashboard() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      delete (L.Icon.Default.prototype as IconDefault)._getIconUrl;
       L.Icon.Default.mergeOptions({
         iconRetinaUrl: '/marker-icon-2x.png',
         iconUrl: '/marker-icon.png',
@@ -200,5 +204,5 @@ export default function WeatherDashboard() {
         </div>
       </motion.div>
     </div>
-  )
+  );
 }
