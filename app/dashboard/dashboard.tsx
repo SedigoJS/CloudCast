@@ -95,7 +95,7 @@ export default function WeatherDashboard() {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Enter city name"
-                className="flex-grow px-4 py-2 rounded-l-md border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                className="flex-grow px-4 py-2 rounded-l-md border text-black border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               />
               <button
                 type="submit"
