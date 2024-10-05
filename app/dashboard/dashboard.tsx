@@ -1,95 +1,97 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { SearchIcon, Droplets, Wind, Sun, Thermometer, Eye, Compass } from 'lucide-react'
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
-import { motion } from 'framer-motion'
-import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
+import { useState, useEffect } from 'react';
+import { SearchIcon, Droplets, Wind, Sun, Thermometer, Eye, Compass } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 type WeatherData = {
-  temp: number
-  feelsLike: number
-  condition: string
-  humidity: number
-  windSpeed: number
-  windDirection: number
-  pressure: number
-  dewPoint: number
-  visibility: number
-  icon: string
-  cityName: string
-  country: string
-  datetime: string
-  lat: number
-  lon: number
-}
+  temp: number;
+  feelsLike: number;
+  condition: string;
+  humidity: number;
+  windSpeed: number;
+  windDirection: number;
+  pressure: number;
+  dewPoint: number;
+  visibility: number;
+  icon: string;
+  cityName: string;
+  country: string;
+  datetime: string;
+  lat: number;
+  lon: number;
+};
 
 function ChangeView({ center }: { center: [number, number] }) {
-  const map = useMap()
+  const map = useMap();
   useEffect(() => {
-    map.setView(center, 10)
-  }, [center, map])
-  return null
+    map.setView(center, 10);
+  }, [center, map]);
+  return null;
 }
 
 export default function WeatherDashboard() {
-  const [city, setCity] = useState('Manila') // Set default city to Manila
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [city, setCity] = useState('Manila');
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load weather data for the default city on mount
     fetchWeatherData(city);
-  }, [city])
+  }, [city]);
 
   useEffect(() => {
-    delete (L.Icon.Default.prototype as any)._getIconUrl
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: '/marker-icon-2x.png',
-      iconUrl: '/marker-icon.png',
-      shadowUrl: '/marker-shadow.png',
-    })
-  }, [])
+    if (typeof window !== 'undefined') {
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: '/marker-icon-2x.png',
+        iconUrl: '/marker-icon.png',
+        shadowUrl: '/marker-shadow.png',
+      });
+    }
+  }, []);
 
   const fetchWeatherData = async (city: string) => {
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError(null);
 
     try {
-      const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`)
-      const data = await response.json()
+      const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+      const data = await response.json();
 
       if (response.ok) {
-        setWeatherData(data)
+        setWeatherData(data);
       } else {
-        setError(data.error || 'Failed to fetch weather data')
+        setError(data.error || 'Failed to fetch weather data');
       }
-    } catch (err) {
-      setError('An error occurred. Please try again.')
+    } catch {
+      setError('An error occurred. Please try again.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    fetchWeatherData(city); // Fetch weather data on search
-  }
+    e.preventDefault();
+    fetchWeatherData(city);
+  };
 
   const getWindDirection = (degree: number) => {
-    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
-    return directions[Math.round(degree / 22.5) % 16]
-  }
+    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    return directions[Math.round(degree / 22.5) % 16];
+  };
 
   return (
     <div className="min-h-screen bg-[url('/dashboardbg.png')] bg-no-repeat bg-cover bg-center">
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "linear" }}
-        className='w-full'
+        transition={{ duration: 1, ease: 'linear' }}
+        className="w-full"
       >
         <div className="max-w-5xl mx-auto p-4">
           <h1 className="text-4xl font-bold text-center text-white mb-8">Weather Dashboard</h1>
@@ -118,20 +120,26 @@ export default function WeatherDashboard() {
             <div className="bg-blue-200 dark:bg-gray-800 rounded-xl shadow-lg p-6">
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h2 className="text-3xl font-semibold dark:text-white">{weatherData.cityName}, {weatherData.country}</h2>
+                  <h2 className="text-3xl font-semibold dark:text-white">
+                    {weatherData.cityName}, {weatherData.country}
+                  </h2>
                   <p className="text-gray-600 dark:text-gray-400">{weatherData.datetime}</p>
                 </div>
                 <div className="flex items-center">
-                  <img
+                  <Image
                     src={`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`}
                     alt={weatherData.condition}
                     className="w-16 h-16"
+                    width={64} // Required for Next.js Image component
+                    height={64} // Required for Next.js Image component
                   />
                   <span className="text-3xl lg:text-5xl ml-4 dark:text-white">{weatherData.temp}°C</span>
                 </div>
               </div>
-              <p className="text-xl mb-6 capitalize dark:text-white">{weatherData.condition}. {weatherData.windSpeed < 3.3 ? 'Light breeze' : 'Moderate wind'}</p>
-              
+              <p className="text-xl mb-6 capitalize dark:text-white">
+                {weatherData.condition}. {weatherData.windSpeed < 3.3 ? 'Light breeze' : 'Moderate wind'}
+              </p>
+
               <div className="mb-6 h-64 rounded-lg overflow-hidden">
                 <MapContainer center={[weatherData.lat, weatherData.lon]} zoom={10} style={{ height: '100%', width: '100%' }}>
                   <TileLayer
