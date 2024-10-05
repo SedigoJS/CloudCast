@@ -1,16 +1,16 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { SearchIcon, Droplets, Wind, Sun, Thermometer, Eye, Compass } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import { useMap } from 'react-leaflet';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
 
-interface IconDefault {
-  _getIconUrl?: string;
-}
+const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
 
 type WeatherData = {
   temp: number;
@@ -48,21 +48,10 @@ export default function WeatherDashboard() {
     fetchWeatherData(city);
   }, [city]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      delete (L.Icon.Default.prototype as IconDefault)._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: '/marker-icon-2x.png',
-        iconUrl: '/marker-icon.png',
-        shadowUrl: '/marker-shadow.png',
-      });
-    }
-  }, []);
-
   const fetchWeatherData = async (city: string) => {
     setLoading(true);
     setError(null);
-
+    
     try {
       const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
       const data = await response.json();
@@ -137,7 +126,7 @@ export default function WeatherDashboard() {
                     width={64} // Required for Next.js Image component
                     height={64} // Required for Next.js Image component
                   />
-                  <span className="text-3xl lg:text-5xl ml-4 dark:text-white">{weatherData.temp}°C</span>
+                  <span className="text-3xl lg:text-5xl ml-4 dark:text-white">{weatherData ? weatherData.temp : 'N/A'}°C</span>
                 </div>
               </div>
               <p className="text-xl mb-6 capitalize dark:text-white">
