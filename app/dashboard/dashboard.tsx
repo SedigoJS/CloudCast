@@ -37,12 +37,12 @@ export default function WeatherDashboard() {
   const [city, setCity] = useState('Manila') // Set default city to Manila
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Load weather data for the default city on mount
     fetchWeatherData(city);
-  }, [])
+  }, [city])
 
   useEffect(() => {
     delete (L.Icon.Default.prototype as any)._getIconUrl
