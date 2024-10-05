@@ -17,7 +17,7 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
+    setError(null)
     setLoading(true)
 
     if (password !== confirmPassword) {
@@ -42,7 +42,7 @@ export default function RegisterForm() {
       } else {
         setError(data.error || 'Registration failed')
       }
-    } catch (error) {
+    } catch {
       setError('An error occurred. Please try again.')
     } finally {
       setLoading(false)

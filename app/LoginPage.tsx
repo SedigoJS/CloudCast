@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
+    setError(null)
     setLoading(true)
 
     try {
@@ -34,7 +34,7 @@ export default function LoginForm() {
       } else {
         setError(data.error || 'Login failed')
       }
-    } catch (error) {
+    } catch {
       setError('An error occurred. Please try again.')
     } finally {
       setLoading(false)
