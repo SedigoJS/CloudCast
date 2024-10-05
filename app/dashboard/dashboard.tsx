@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { SearchIcon, Droplets, Wind, Sun, CloudRain, Thermometer, Eye, Compass } from 'lucide-react'
+import { SearchIcon, Droplets, Wind, Sun, Thermometer, Eye, Compass } from 'lucide-react'
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import { motion } from 'framer-motion'
 import 'leaflet/dist/leaflet.css'
