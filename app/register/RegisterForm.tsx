@@ -42,7 +42,7 @@ export default function RegisterForm() {
       } else {
         setError(data.error || 'Registration failed')
       }
-    } catch (err) {
+    } catch (error) {
       setError('An error occurred. Please try again.')
     } finally {
       setLoading(false)
