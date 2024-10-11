@@ -11,35 +11,40 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false)
-  const route = useRouter();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
-
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+  
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-      })
-
-      const data = await response.json()
-
+      });
+  
+      const data = await response.json();
+  
       if (response.ok) {
-        // Handle successful login (e.g., redirect or update app state)
-        console.log('Login successful:', data)
-        route.push('/dashboard')
+        // Assuming the server sends back a token
+        const token = data.token; // Adjust based on your API response
+        // Set the token in a cookie
+        document.cookie = `token=${token}; path=/; max-age=3600`; // Cookie expires in 1 hour
+  
+        // Redirect to the dashboard after successful login
+        console.log('Login successful:', data);
+        router.push('/dashboard');
       } else {
-        setError(data.error || 'Login failed')
+        setError(data.error || 'Login failed');
       }
     } catch {
-      setError('An error occurred. Please try again.')
+      setError('An error occurred. Please try again.');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-[url('/dashboardbg.png')] bg-cover bg-no-repeat bg-center flex items-center justify-center p-4">

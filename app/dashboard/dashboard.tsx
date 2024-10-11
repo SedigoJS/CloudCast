@@ -10,7 +10,7 @@ import 'leaflet/dist/leaflet.css';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
+
 
 type WeatherData = {
   temp: number;
@@ -87,7 +87,7 @@ export default function WeatherDashboard() {
         className="w-full"
       >
         <div className="max-w-5xl mx-auto p-4">
-          <h1 className="text-4xl font-bold text-center text-white mb-8">Weather Dashboard</h1>
+          <h1 className="text-4xl font-bold text-center text-white my-4">Weather Dashboard</h1>
           <form onSubmit={handleSearch} className="mb-8">
             <div className="flex">
               <input
@@ -139,7 +139,6 @@ export default function WeatherDashboard() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   />
-                  <Marker position={[weatherData.lat, weatherData.lon]} />
                   <ChangeView center={[weatherData.lat, weatherData.lon]} />
                 </MapContainer>
               </div>
