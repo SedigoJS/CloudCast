@@ -47,7 +47,7 @@ export default function MusicPlayer() {
       audioRef.current = new Audio(tracks[currentTrackIndex].audio)
       audioRef.current.volume = volume
       audioRef.current.play()
-      setIsPlaying(false)
+      setIsPlaying(true)
     }
   }, [currentTrackIndex, tracks])
 
