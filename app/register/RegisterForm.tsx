@@ -83,7 +83,7 @@ export default function RegisterForm() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name" className='text-black'>Name</Label>
                 <div className="relative">
                   <UserIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
@@ -99,7 +99,7 @@ export default function RegisterForm() {
               </div>
 
               <div className="">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className='text-black'>Email</Label>
                 <div className="relative">
                   <MailIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
@@ -115,7 +115,7 @@ export default function RegisterForm() {
               </div>
 
               <div className="">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className='text-black'>Password</Label>
                 <div className="relative">
                   <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
@@ -142,7 +142,7 @@ export default function RegisterForm() {
               </div>
 
               <div className="">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword" className='text-black'>Confirm Password</Label>
                 <div className="relative">
                   <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
@@ -169,7 +169,7 @@ export default function RegisterForm() {
             </form>
 
             <div className="space-y-4">
-              <Button variant="outline" className="w-full hover:bg-gray-300" onClick={signInWithGoogle}>
+              <Button variant="outline" className="w-full bg-white text-black hover:text-white hover:bg-gray-300" onClick={signInWithGoogle}>
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
@@ -191,7 +191,7 @@ export default function RegisterForm() {
                 Continue with Google
               </Button>
               
-              <Button variant="outline" className="w-full hover:bg-blue-400" onClick={signInWithFacebook}>
+              <Button variant="outline" className="w-full bg-white text-black hover:text-white hover:bg-blue-400" onClick={signInWithFacebook}>
                 <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
                 </svg>
