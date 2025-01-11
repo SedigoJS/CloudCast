@@ -91,7 +91,7 @@ export default function RegisterForm() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-white text-black"
                     placeholder="Enter your name"
                     required
                   />
@@ -107,7 +107,7 @@ export default function RegisterForm() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-white text-black"
                     placeholder="Enter your email"
                     required
                   />
@@ -123,7 +123,7 @@ export default function RegisterForm() {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10"
+                    className="pl-10 pr-10 bg-white text-black"
                     placeholder="Enter your password"
                     required
                   />
@@ -150,7 +150,7 @@ export default function RegisterForm() {
                     type={showPassword ? 'text' : 'password'}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-white text-black"
                     placeholder="Confirm your password"
                     required
                   />
