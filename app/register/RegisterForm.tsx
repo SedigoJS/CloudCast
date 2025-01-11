@@ -11,12 +11,19 @@ import { signIn } from "next-auth/react";
 
 // Placeholder functions for OAuth - these would need to be implemented
 const signInWithGoogle = async () => {
-  await signIn("google");
-}
+  try {
+    await signIn("google");
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
+  }
+};
 
 const signInWithFacebook = async () => {
-  // Implement Facebook Sign-In logic
-  console.log('Sign in with Facebook')
+  try {
+    await signIn("facebook");
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
+  }
 }
 
 export default function RegisterForm() {
