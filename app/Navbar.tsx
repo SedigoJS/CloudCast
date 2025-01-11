@@ -20,6 +20,12 @@ export default function Navbar() {
     return null
   }
 
+  const handleLogout = async () => {
+
+    document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+    router.push('/')
+  }
+
   const linkClasses = (path: string) =>
     `flex items-center space-x-2 p-2 rounded-xl ${
       pathname === path ? 'bg-blue-300 dark:bg-blue-600' : 'bg-gray-300 dark:bg-gray-700'
@@ -54,7 +60,7 @@ export default function Navbar() {
           </button>
           <button 
             className="p-2 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors"
-            onClick={() => router.push('/')}
+            onClick={handleLogout}
             aria-label="Log out"
           >
             <LogOut className="h-5 w-5" />
