@@ -9,22 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { signIn } from "next-auth/react";
 
-// Placeholder functions for OAuth - these would need to be implemented
-const signInWithGoogle = async () => {
-  try {
-    await signIn("google");
-  } catch (error) {
-    console.error("Error signing in with Google:", error);
-  }
-};
-
-const signInWithFacebook = async () => {
-  try {
-    await signIn("facebook");
-  } catch (error) {
-    console.error("Error signing in with Google:", error);
-  }
-}
 
 export default function RegisterForm() {
   const [name, setName] = useState('')
@@ -69,6 +53,29 @@ export default function RegisterForm() {
     }
   }
 
+
+  const signInWithGoogle = async () => {
+    try {
+      await signIn("google");
+
+      router.push("/dashboard");
+
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  };
+  
+  const signInWithFacebook = async () => {
+    try {
+      await signIn("facebook");
+
+      router.push("/dashboard");
+
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[url('/dashboardbg.png')] bg-cover bg-no-repeat bg-center flex items-center justify-center p-4">
       <motion.div
@@ -79,7 +86,7 @@ export default function RegisterForm() {
       >
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="p-6 space-y-6">
-            <h2 className="text-2xl font-bold text-center text-gray-900">Create an Account</h2>
+            <h2 className="text-2xl font-bold text-center text-blue-800">Create an Account</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="">
@@ -169,7 +176,7 @@ export default function RegisterForm() {
             </form>
 
             <div className="space-y-4">
-              <Button variant="outline" className="w-full bg-white text-black hover:text-white hover:bg-gray-300" onClick={signInWithGoogle}>
+              <Button variant="outline" className="w-full bg-white text-black hover:text-white hover:bg-gray-400" onClick={signInWithGoogle}>
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
