@@ -7,6 +7,7 @@ import { useMap } from 'react-leaflet';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import 'leaflet/dist/leaflet.css';
+import { WeatherChatbot } from '../components/WeatherChatbot';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
@@ -87,6 +88,7 @@ export default function WeatherDashboard() {
         className="w-full"
       >
         <div className="max-w-5xl mx-auto p-4">
+          <WeatherChatbot />
           <h1 className="text-4xl font-bold text-center text-white my-4">Weather Dashboard</h1>
           <form onSubmit={handleSearch} className="mb-8">
             <div className="flex">
@@ -123,8 +125,8 @@ export default function WeatherDashboard() {
                     src={`http://openweathermap.org/img/wn/${weatherData.icon}@2x.png`}
                     alt={weatherData.condition}
                     className="w-16 h-16"
-                    width={64} // Required for Next.js Image component
-                    height={64} // Required for Next.js Image component
+                    width={1000}
+                    height={1000}
                   />
                   <span className="text-3xl lg:text-5xl ml-4 dark:text-white">{weatherData ? weatherData.temp : 'N/A'}°C</span>
                 </div>
@@ -186,6 +188,7 @@ export default function WeatherDashboard() {
                     <span>{weatherData.visibility.toFixed(1)} km</span>
                   </div>
                 </div>
+                <WeatherChatbot />
               </div>
             </div>
           )}
